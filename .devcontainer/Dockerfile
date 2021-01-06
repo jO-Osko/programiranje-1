@@ -7,8 +7,8 @@ RUN sudo apt update --fix-missing
 RUN sudo apt install -y libgmp-dev libzmq3-dev m4 perl pkg-config zlib1g-dev python3 \
   python3-pip --fix-missing
 
-RUN pip install jupyter-book "jupytext==1.7.1" pandas matplotlib "sphinxcontrib-bibtex<2.0.0"
-RUN pip install --no-cache-dir --no-warn-script-location jupyter-book "jupytext==1.7.1" pandas matplotlib "sphinxcontrib-bibtex<2.0.0" numpy jupyter requests dash
+RUN pip3 install jupyter-book "jupytext==1.7.1" pandas matplotlib "sphinxcontrib-bibtex<2.0.0"
+RUN pip3 install --no-cache-dir --no-warn-script-location jupyter-book "jupytext==1.7.1" pandas matplotlib "sphinxcontrib-bibtex<2.0.0" numpy jupyter requests dash
 
 
 # OCaml + Jupyter
@@ -33,6 +33,9 @@ RUN pip3 install RISE
 COPY .ocamlinit /home/opam/.ocamlinit
 ENV PATH $PATH:/home/opam/.local/bin
 RUN jupyter-nbextension enable rise --py
+
+RUN ln -s /usr/bin/python3 /usr/bin/python & \
+    ln -s /usr/bin/pip3 /usr/bin/pip
 
 # Expose Jupyter port
 EXPOSE 8888
