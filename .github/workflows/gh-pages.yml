@@ -5,22 +5,34 @@ on: push
 
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
-    
   build_docker_image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: |
-          echo IMAGE_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
-      - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
-      - run: docker pull docker.pkg.github.com/$IMAGE_REPOSITORY/build-cache-no-buildkit || true
-      - run: docker build .devcontainer/ -t "prog1:latest" --cache-from=docker.pkg.github.com/$IMAGE_REPOSITORY/build-cache-no-buildkit
-      - run: docker tag "prog1:latest" docker.pkg.github.com/$IMAGE_REPOSITORY/build-cache-no-buildkit && docker push docker.pkg.github.com/$GITHUB_REPOSITORY/build-cache-no-buildkit || true
-
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .devcontainer/
+          file: .devcontainer/Dockerfile
+          push: true
+          tags: |
+            j00sko/prog1:latest
+            ghcr.io/j0-0sko/prog1:latest
+      
   deploy-book:
+    needs: build_docker_image
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    container: jO-Osko/prog1:latest
+    container: ghcr.io/j0-0sko/prog1:latest
     steps:
     - uses: actions/checkout@v2
 
