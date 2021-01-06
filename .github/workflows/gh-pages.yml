@@ -6,7 +6,7 @@ on: push
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
 
-      
+
   deploy-book:
     # needs: build_docker_image
     # if: github.ref == 'refs/heads/master'
@@ -24,6 +24,8 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
+        ocaml-jupyter-opam-genspec
+        jupyter kernelspec install --name ocaml-jupyter "$(opam var share)/jupyter" --user
         jupyter kernelspec list
         jupyter-book build prog1/zapiski
 
