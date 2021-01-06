@@ -8,23 +8,15 @@ jobs:
   build_docker_image:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1 
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }}
+      - uses: actions/checkout@v2
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: whoan/docker-build-with-cache-action@v5
         with:
-          file: .devcontainer/Dockerfile
-          push: true
-          tags: |
-            ghcr.io/jo-osko/prog1:latest
+          username: jo-osko
+          dockerfile: .devcontainer/Dockerfile
+          password: "${{ secrets.GITHUB_TOKEN }}"
+          registry: docker.pkg.github.com
+          image_name: prog1
       
   deploy-book:
     needs: build_docker_image
