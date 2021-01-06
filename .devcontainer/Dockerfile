@@ -9,7 +9,9 @@ ENV PATH="/opt/venv/bin:$PATH"
 RUN python -m pip install --upgrade pip
 # For faster instalation
 RUN pip install wheel
-RUN pip install --no-cache-dir --no-warn-script-location pandas numpy jupyter requests matplotlib dash jupyter-book
+# Textbook generation requirements
+RUN pip install jupyter-book "jupytext==1.7.1" pandas matplotlib "sphinxcontrib-bibtex<2.0.0"
+RUN pip install --no-cache-dir --no-warn-script-location jupyter-book "jupytext==1.7.1" pandas matplotlib "sphinxcontrib-bibtex<2.0.0" numpy jupyter requests dash
 
 
 # Once this gets fixed: https://discuss.ocaml.org/t/psa-ocaml-opam2-docker-images-updated-to-4-08-0-release/3948
