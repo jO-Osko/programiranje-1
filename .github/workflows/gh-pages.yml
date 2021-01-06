@@ -1,16 +1,23 @@
 name: github pages
 
 # Only run this when the master branch changes
-on:
-  push:
-    branches:
-    - master
+on: push
 
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
-  deploy-book:
+  build_docker_image:
     runs-on: ubuntu-latest
-    container: j00sko/programiranje1:latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
+      - run: docker pull docker.pkg.github.com/$GITHUB_REPOSITORY/build-cache-no-buildkit || true
+      - run: docker build .devcontainer/Dockerfile -t "prog1:latest" --cache-from=docker.pkg.github.com/$GITHUB_REPOSITORY/build-cache-no-buildkit
+      - run: docker tag "prog1:latest" docker.pkg.github.com/$GITHUB_REPOSITORY/build-cache-no-buildkit && docker push docker.pkg.github.com/$GITHUB_REPOSITORY/build-cache-no-buildkit || true
+
+  deploy-book:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    container: jO-Osko/prog1:latest
     steps:
     - uses: actions/checkout@v2
 
