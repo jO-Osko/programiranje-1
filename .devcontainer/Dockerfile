@@ -30,7 +30,6 @@ RUN python3 /home/opam/.local/bin/jupyter kernelspec install --name ocaml-jupyte
 
 # RISE
 RUN pip3 install RISE
-COPY .ocamlinit /home/opam/.ocamlinit
 ENV PATH $PATH:/home/opam/.local/bin
 RUN jupyter-nbextension enable rise --py
 
