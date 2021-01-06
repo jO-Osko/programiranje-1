@@ -11,8 +11,8 @@ jobs:
       - name: Build and push
         uses: whoan/docker-build-with-cache-action@v5
         with:
-          username: j0-0sko
-          context: .devcontainer/
+          username: jo-osko
+          dockerfile: ".devcontainer/Dockerfile"
           password: "${{ secrets.GITHUB_TOKEN }}"
           registry: docker.pkg.github.com
           image_name: prog1
