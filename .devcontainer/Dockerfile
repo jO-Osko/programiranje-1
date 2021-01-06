@@ -25,7 +25,7 @@ RUN opam user-setup install
 
 RUN sudo mkdir /usr/local/share/jupyter
 RUN sudo chmod a+x /usr/local/share/jupyter
-RUN /home/opam/.opam/4.10/bin/ocaml-jupyter-opam-genspec
+RUN /home/opam/.opam/{OCAML_VERSION}/bin/ocaml-jupyter-opam-genspec
 RUN python3 /home/opam/.local/bin/jupyter kernelspec install --name ocaml-jupyter "$(opam var share)/jupyter" --user
 
 # RISE
