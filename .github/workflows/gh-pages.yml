@@ -24,7 +24,6 @@ jobs:
           file: .devcontainer/Dockerfile
           push: true
           tags: |
-            j00sko/prog1:latest
             ghcr.io/j0-0sko/prog1:latest
       
   deploy-book:
