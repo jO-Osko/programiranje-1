@@ -22,6 +22,11 @@ FROM ocurrent/opam:debian-10-ocaml-${OCAML_VERSION}
 # Redeclare arg: https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG OCAML_VERSION
 
+# m4 needs sudo: https://hub.docker.com/repository/registry-1.docker.io/j00sko/programiranje1/builds/1ca4dc84-ad7f-4ca4-af49-4756f8f6e02e
+USER root
+RUN apt-get install -qq -yy libgmp-dev libzmq3-dev m4 perl pkg-config zlib1g-dev
+USER opam
+
 # Needed for merlin
 RUN opam update && opam depext --yes --install jupyter ocaml-lsp-server ocamlformat utop
 RUN opam user-setup install
