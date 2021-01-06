@@ -5,9 +5,9 @@ on: push
 
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
-  - name: PrepareReg Names
-      run: 
-        echo IMAGE_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
+  prepare_reg_names:
+    run: |
+      echo IMAGE_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
     
   build_docker_image:
     runs-on: ubuntu-latest
