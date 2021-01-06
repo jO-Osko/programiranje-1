@@ -31,8 +31,6 @@ USER opam
 # Needed for merlin
 RUN opam update && opam depext --yes --install jupyter ocaml-lsp-server ocamlformat utop
 RUN opam user-setup install
-RUN /home/opam/.opam/${OCAML_VERSION}/bin/ocaml-jupyter-opam-genspec
-RUN jupyter kernelspec install --name ocaml-jupyter
 
 # Copy installed Python
 COPY --from=base-python /opt/venv /opt/venv
@@ -42,6 +40,9 @@ ENV LD_LIBRARY_PATH='/lib:/usr/lib:/usr/local/lib'
 
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
+
+RUN /home/opam/.opam/${OCAML_VERSION}/bin/ocaml-jupyter-opam-genspec
+RUN jupyter kernelspec install --name ocaml-jupyter
 
 # Get the correct OCaml
 # This is a manual version of: RUN eval $(opam env)
