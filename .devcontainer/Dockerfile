@@ -1,5 +1,6 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.134.1/containers/alpine/.devcontainer/base.Dockerfile
 # Taken from: https://github.com/kayceesrk/cs3100_m20/blob/gh-pages/_docker/dockerfile
+ARG OCAML_VERSION="4.11"
 FROM ocurrent/opam:debian-10-ocaml-${OCAML_VERSION}
 
 RUN sudo apt update --fix-missing
