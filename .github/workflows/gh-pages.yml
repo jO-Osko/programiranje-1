@@ -20,7 +20,7 @@ jobs:
       
   deploy-book:
     needs: build_docker_image
-    if: github.ref == 'refs/heads/master'
+    # if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     container: ghcr.io/j0-0sko/prog1:latest
     steps:

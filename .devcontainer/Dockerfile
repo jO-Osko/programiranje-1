@@ -32,6 +32,7 @@ USER opam
 RUN opam update && opam depext --yes --install jupyter ocaml-lsp-server ocamlformat utop
 RUN opam user-setup install
 RUN /home/opam/.opam/${OCAML_VERSION}/bin/ocaml-jupyter-opam-genspec
+RUN jupyter kernelspec install --name ocaml-jupyter
 
 # Copy installed Python
 COPY --from=base-python /opt/venv /opt/venv
