@@ -41,8 +41,6 @@ ENV LD_LIBRARY_PATH='/lib:/usr/lib:/usr/local/lib'
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
 
-RUN /home/opam/.opam/${OCAML_VERSION}/bin/ocaml-jupyter-opam-genspec
-
 # Get the correct OCaml
 # This is a manual version of: RUN eval $(opam env)
 ENV OPAM_SWITCH_PREFIX='/home/opam/.opam/'${OCAML_VERSION}
@@ -53,6 +51,7 @@ ENV OCAML_DOCKER_PATH='/home/opam/.opam/'${OCAML_VERSION}'/bin'
 ENV PATH="$OCAML_DOCKER_PATH:$PATH"
 
 # Install Jupyter kernel for OCaml
+RUN /home/opam/.opam/${OCAML_VERSION}/bin/ocaml-jupyter-opam-genspec
 RUN jupyter kernelspec install --name ocaml-jupyter "$(opam var share)/jupyter" --user
 
 # This enables us to install additional Python libraries
