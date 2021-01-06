@@ -24,7 +24,7 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
-        opam init
+        opam init --disable-sandboxing
         ocaml-jupyter-opam-genspec
         jupyter kernelspec install --name ocaml-jupyter "$(opam var share)/jupyter" --user
         jupyter kernelspec list
