@@ -17,6 +17,8 @@ jobs:
     - name: Before
       run: |
         jupyter kernelspec list
+        which ocaml
+        which opam
     - 
       uses: actions/checkout@v2
       with: 
@@ -24,9 +26,8 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
-        opam init --disable-sandboxing
-        ocaml-jupyter-opam-genspec
-        jupyter kernelspec install --name ocaml-jupyter "$(opam var share)/jupyter" --user
+        which ocaml
+        which opam
         jupyter kernelspec list
         jupyter-book build prog1/zapiski
 
