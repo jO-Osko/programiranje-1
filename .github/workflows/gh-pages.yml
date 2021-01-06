@@ -15,7 +15,7 @@ jobs:
           image-file: .devcontainer/Dockerfile
           password: "${{ secrets.GITHUB_TOKEN }}"
           registry: docker.pkg.github.com
-          image-name: prog1
+          image_name: prog1
       
   deploy-book:
     needs: build_docker_image
