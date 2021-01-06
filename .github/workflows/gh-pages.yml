@@ -12,6 +12,7 @@ jobs:
     # if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     # container: ghcr.io/j0-0sko/prog1:latest
+    # ghcr.io/jo-osko/programiranje-1/prog1:latest
     container: j00sko/programiranje1:latest
     steps:
     - name: Before
