@@ -42,7 +42,6 @@ ENV LD_LIBRARY_PATH='/lib:/usr/lib:/usr/local/lib'
 ENV PATH="/opt/venv/bin:$PATH"
 
 RUN /home/opam/.opam/${OCAML_VERSION}/bin/ocaml-jupyter-opam-genspec
-RUN jupyter kernelspec install --name ocaml-jupyter
 
 # Get the correct OCaml
 # This is a manual version of: RUN eval $(opam env)
