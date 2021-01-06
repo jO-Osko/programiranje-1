@@ -26,7 +26,6 @@ ARG OCAML_VERSION
 USER root
 RUN apt-get update
 RUN apt-get install -qq -yy libgmp-dev libzmq3-dev m4 perl pkg-config zlib1g-dev
-USER opam
 
 # Needed for merlin
 RUN opam update && opam depext --yes --install jupyter ocaml-lsp-server ocamlformat utop
@@ -51,10 +50,9 @@ ENV OCAML_DOCKER_PATH='/home/opam/.opam/'${OCAML_VERSION}'/bin'
 ENV PATH="$OCAML_DOCKER_PATH:$PATH"
 
 # Install Jupyter kernel for OCaml
-RUN /home/opam/.opam/${OCAML_VERSION}/bin/ocaml-jupyter-opam-genspec
+RUN '/home/opam/.opam/'${OCAML_VERSION}'/bin/ocaml-jupyter-opam-genspec'
 RUN jupyter kernelspec install --name ocaml-jupyter "$(opam var share)/jupyter" --user
 
 # This enables us to install additional Python libraries
-USER root
 # Expose Jupyter port
 EXPOSE 8888
