@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     # container: ghcr.io/j0-0sko/prog1:latest
     container: j00sko/programiranje1:latest
-    - name: Build the book
+    steps:
+    - name: Before
       run: |
         jupyter kernelspec list
-    steps:
     - 
       uses: actions/checkout@v2
       with: 
