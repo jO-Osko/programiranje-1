@@ -30,7 +30,7 @@ RUN opam -y depext lwt_ssl
 RUN opam install -y lwt_ssl merlin utop user-setup github-unix jupyter ocamlformat ocaml-lsp-server
 RUN opam user-setup install
 
-RUN sudo mkdir /usr/local/share/jupyter
+# RUN sudo mkdir /usr/local/share/jupyter
 RUN sudo chmod a+x /usr/local/share/jupyter
 RUN /home/opam/.opam/4.11/bin/ocaml-jupyter-opam-genspec
 RUN python3 /home/opam/.local/bin/jupyter kernelspec install --name ocaml-jupyter "$(opam var share)/jupyter" --user
