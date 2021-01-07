@@ -22,6 +22,8 @@ RUN pip3 install --no-cache-dir --no-warn-script-location jupyter-book "jupytext
 RUN opam remote add upstream https://github.com/ocaml/opam-repository.git && \
     opam update && opam upgrade
 
+ENV PATH $PATH:/home/opam/.local/bin
+
 # Python libs
 RUN pip3 install jupyter-book "jupytext==1.7.1" pandas matplotlib "sphinxcontrib-bibtex<2.0.0"
 RUN pip3 install --no-cache-dir --no-warn-script-location jupyter-book "jupytext==1.7.1" pandas matplotlib "sphinxcontrib-bibtex<2.0.0" numpy jupyter requests dash
@@ -33,11 +35,10 @@ RUN opam user-setup install
 # RUN sudo mkdir /usr/local/share/jupyter
 RUN sudo chmod a+x /usr/local/share/jupyter
 RUN /home/opam/.opam/4.11/bin/ocaml-jupyter-opam-genspec
-RUN python3 /home/opam/.local/bin/jupyter kernelspec install --name ocaml-jupyter "$(opam var share)/jupyter" --user
+RUN python3 /home/opam/4.11/bin/jupyter kernelspec install --name ocaml-jupyter "$(opam var share)/jupyter" --user
 
 # RISE
 RUN pip3 install RISE
-ENV PATH $PATH:/home/opam/.local/bin
 RUN jupyter-nbextension enable rise --py
 
 # Expose Jupyter port
